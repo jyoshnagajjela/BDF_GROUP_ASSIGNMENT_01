@@ -1,5 +1,5 @@
 
-const db = require("../database/db");
+
 
 // Check required fields
 function validateBody(requiredFields) {
