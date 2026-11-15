@@ -39,6 +39,30 @@ CREATE TABLE IF NOT EXISTS allotments (
 );
 `);
 
+// Create indexes for better database performance
+
+db.exec(`
+CREATE INDEX IF NOT EXISTS idx_members_email
+ON members(email);
+`);
+
+db.exec(`
+CREATE INDEX IF NOT EXISTS idx_lockers_status
+ON lockers(status);
+`);
+
+db.exec(`
+CREATE INDEX IF NOT EXISTS idx_allotments_member_id
+ON allotments(member_id);
+`);
+
+db.exec(`
+CREATE INDEX IF NOT EXISTS idx_allotments_locker_id
+ON allotments(locker_id);
+`);
+
+console.log("Database indexes created successfully!");
+
 console.log("SQLite database connected successfully!");
 
 // Insert sample members
@@ -73,6 +97,5 @@ insertAllotment.run(
 );
 
 console.log("Sample data inserted successfully!");
-
 
 module.exports = db;
