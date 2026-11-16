@@ -205,15 +205,16 @@ function availableLockers(req, res) {
         }
 
         const records = db.prepare(`
-            SELECT *
-            FROM lockers l
-            WHERE NOT EXISTS (
-                SELECT 1
-                FROM allotments a
-                WHERE a.locker_id = l.id
-                AND date(?) BETWEEN
-                    date(a.start_date) AND date(a.end_date)
-            )
+          SELECT *
+FROM lockers l
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM allotments a
+    WHERE a.locker_id = l.id
+    AND date(?) BETWEEN
+        date(a.start_date) AND date(a.end_date)
+)
+ORDER BY l.floor ASC, l.name ASC
         `).all(date);
 
         res.status(200).json(records);
